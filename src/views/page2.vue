@@ -2,35 +2,60 @@
   <!-- <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div> -->
-<!-- 
+  </div>-->
+  <!-- 
   <div class="home" >
     
     <router-link   to="/about">
   <button>sdfdfsd</button>
 </router-link>
     
-     </div> -->
- <div  style="  margin:  auto; width: 800px;margin-top:250px">
-   <router-link to="/"> <sui-button >Back</sui-button></router-link>
-  <sui-segment stacked="tall" >
-   <sui-form>
-    <sui-form-field>
-      <label>First Name</label>
-      <input v-model="firstName" placeholder="First Name" >
-    </sui-form-field>
-    <sui-form-field>
-      <label>Last Name</label>
-      <input  v-model="lastName"  placeholder="Last Name" >
-    </sui-form-field>
-    <sui-form-field>
-    </sui-form-field>
-    <sui-button v-on:click="verify" type="submit">verify(verify existing identity)</sui-button>
-  </sui-form>
+  </div>-->
+  <div style="  margin:  auto; width: 800px;margin-top:250px">
+    <router-link to="/">
+      <sui-button>Back</sui-button>
+    </router-link>
 
-  </sui-segment>
-  <!-- </sui-grid> -->
-  <!-- <div>
+    <sui-segment stacked="tall">
+      <sui-form>
+        <sui-grid>
+          <sui-grid-row>
+            <sui-grid-column :width="8">
+              <sui-form-field>
+                <label>First Name</label>
+                <input v-model="firstName" :disabled="hFirstName != ''" placeholder="First Name">
+              </sui-form-field>
+            </sui-grid-column>
+            <sui-grid-column :width="8">
+              <sui-form-field>
+                <label>Hash of First Name</label>
+                <input v-model="hFirstName" :disabled="firstName != ''" placeholder="First Name">
+              </sui-form-field>
+            </sui-grid-column>
+          </sui-grid-row>
+
+          <sui-grid-row>
+            <sui-grid-column :width="8">
+              <sui-form-field>
+                <label>Last Name</label>
+                <input v-model="lastName" :disabled="hLastName != ''" placeholder="Last Name">
+              </sui-form-field>
+            </sui-grid-column>
+            <sui-grid-column :width="8">
+              <sui-form-field>
+                <label>Hash of Last Name</label>
+                <input v-model="hLastName" :disabled="lastName != ''" placeholder="Last Name">
+              </sui-form-field>
+            </sui-grid-column>
+          </sui-grid-row>
+        </sui-grid>
+
+        <sui-form-field></sui-form-field>
+        <sui-button v-on:click="verify" type="submit">verify(verify existing identity)</sui-button>
+      </sui-form>
+    </sui-segment>
+    <!-- </sui-grid> -->
+    <!-- <div>
     <sui-card class="raised link">
       <sui-card-content>
         <sui-card-header>Cute Dog</sui-card-header>
@@ -43,85 +68,71 @@
         </span>
       </sui-card-content>
     </sui-card>
-  </div> -->
-
-
-
-
-
-
-
-
-
-
-  <div>
-    <sui-button @click.native="toggle">Show Modal</sui-button>
-    <sui-modal v-model="open">
-      <sui-modal-header>Select a Photo</sui-modal-header>
-      <sui-modal-content image>
-        <sui-image wrapped size="medium" src="static/images/avatar/large/rachel.png" />
-        <sui-modal-description>
-          <sui-header>Default Profile Image</sui-header>
-          <p>We've found the following gravatar image associated with your e-mail address.</p>
-          <p>Is it okay to use this photo?</p>
-        </sui-modal-description>
-      </sui-modal-content>
-      <sui-modal-actions>
-        <sui-button positive @click.native="toggle">
-          OK
-        </sui-button>
-      </sui-modal-actions>
-    </sui-modal>
+    </div>-->
+    <div>
+      <sui-modal v-model="open">
+        <sui-modal-header>Resualt</sui-modal-header>
+        <sui-modal-content image>
+          <sui-image wrapped size="medium" src="static/images/avatar/large/rachel.png"/>
+          <sui-modal-description>
+            <sui-header>Information is valid</sui-header>
+            <p>means that your entered identity are completly compatible with correct information</p>
+            <p>:D</p>
+          </sui-modal-description>
+        </sui-modal-content>
+        <sui-modal-actions>
+          <sui-button positive @click.native="toggle">OK</sui-button>
+        </sui-modal-actions>
+      </sui-modal>
+    </div>
   </div>
-  </div>
-
-
-
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
- import {Courses} from  '../scripts/smartContract'
+import HelloWorld from "@/components/HelloWorld.vue";
+import { Courses } from "../scripts/smartContract";
 
-import MerkleTree from 'merkletreejs'
-import SHA256 from 'crypto-js/sha256';
+import MerkleTree from "merkletreejs";
+import SHA256 from "crypto-js/sha256";
 
 export default {
-  name: 'home',
-  data:function (){
-return {firstName:'',
-open:false,
-lastName:''}
+  name: "home",
+  data: function() {
+    return {
+      firstName: "",
+      hFirstName: "",
+      hLastName: "",
+      open: false,
+      lastName: ""
+    };
   },
   methods: {
     toggle() {
       this.open = !this.open;
     },
-    verify:function(){
-      
-      const leaves = [this.firstName,this.lastName].map(x => SHA256(x))
-const tree = new MerkleTree(leaves, SHA256)
-const root = tree.getRoot().toString('hex')
-const leaf = SHA256('a')
-const proof = tree.getProof(leaf)
-console.log('tree') // true
-var that=this
-Courses.getInstructor(function(error, result){
-	if(!error){
-                  
-                  if(root==result[0])
-                  {
-                    that.toggle()
-                    console.log('okkkkkkkkkkkkkkkkkkkk');
-                  }
- 	  console.log('event recieved:',result[0]);
-	  }
-   else
-	 console.error(error);
-   });
-
-
+    verify: function() {
+      // if((this.firstName!='' || this.hFirstName!='')&& (this.lastName!=''||this.hLastName!=''))
+      {
+         let leaves=[]
+       leaves = [this.firstName, this.lastName].map(x => SHA256(x));
+      // this.firstName!=''?leaves[0]=SHA256(this.firstName):leaves[0]=this.hFirstName
+      // this.lastName!=''?leaves[1]=SHA256(this.lastName):leaves[1]=this.hLastName
+      const tree = new MerkleTree(leaves, SHA256);
+      const root = tree.getRoot().toString("hex");
+      // const proof = tree.getProof(leaf);
+      var that = this;
+      console.log('root in page2',root);
+      Courses.getInstructor(function(error, result) {
+        if (!error) {
+          if (root == result[0]) {
+            that.toggle();
+            console.log("okkkkkkkkkkkkkkkkkkkk");
+          }
+          console.log("event recieved:", result[0]);
+        } else console.error(error);
+      });
+      }
       //  Courses.setInstructor(root,23,function (){});
 
       // console.log(this.firstName);
@@ -130,5 +141,5 @@ Courses.getInstructor(function(error, result){
   components: {
     HelloWorld
   }
-}
+};
 </script>

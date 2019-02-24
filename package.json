@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "crypto-js": "^3.1.9-1",
+    "eslint-config-prettier": "^4.0.0",
     "merkletreejs": "0.0.22",
+    "qrcode.vue": "^1.6.1",
     "semantic-ui-vue": "^0.8.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
