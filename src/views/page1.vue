@@ -13,21 +13,21 @@
      </div> -->
 
 <!-- <sui-grid divided="vertically" style="  margin:250px auto; width: 50%;"  > -->
-  <div  style="  margin:  auto; width: 50%;margin-top:250px">
+  <div  style="  margin:  auto; width: 800px;margin-top:250px">
    <router-link to="/"> <sui-button >Back</sui-button></router-link>
   <sui-segment stacked="tall" >
    <sui-form>
     <sui-form-field>
       <label>First Name</label>
-      <input placeholder="First Name" >
+      <input v-model="firstName" placeholder="First Name" >
     </sui-form-field>
     <sui-form-field>
       <label>Last Name</label>
-      <input placeholder="Last Name" >
+      <input  v-model="lastName"  placeholder="Last Name" >
     </sui-form-field>
     <sui-form-field>
     </sui-form-field>
-    <sui-button type="submit">Save(create transaction)</sui-button>
+    <sui-button v-on:click="save" type="submit">Save(create transaction)</sui-button>
   </sui-form>
 
   </sui-segment>
@@ -52,11 +52,24 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+ import {Courses} from  '../scripts/smartContract'
 
 // var Courses = CoursesContract.at('0xbB92a826526f7B5de92434811Eb6EFaE289A5A06');
 // Courses.setInstructor('Stephen Hawking', 76)
 export default {
   name: 'home',
+  data:function (){
+return {firstName:'',
+lastName:''}
+  },
+  methods: {
+    save:function(){
+       Courses.setInstructor(this.firstName,23,function (){});
+
+      console.log(this.firstName);
+    }
+  },
+
   components: {
     HelloWorld
   }

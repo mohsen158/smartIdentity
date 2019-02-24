@@ -100,29 +100,21 @@
 import HelloWorld from '@/components/HelloWorld.vue'
  import {Courses} from  '../scripts/smartContract'
  
-Courses.getInstructor(function(error, result){
-	if(!error){
- 	  console.log('event recieved:',result);
-	  }
-   else
-	 console.error(error);
-   });
+// Courses.getInstructor(function(error, result){
+// 	if(!error){
+//  	  console.log('event recieved:',result);
+// 	  }
+//    else
+// 	 console.error(error);
+//    });
 
-   var instructorEvent = Courses.Instructor();
-    instructorEvent.watch(function(error, result){
-            if (!error)
-                {
-                    
-console.log('event watch recieved:',result);
-                } else {
-              
-                    console.log(error);
-                }
-        });
+   
+        
 export default {
   name: 'home',
   components: {
     HelloWorld
-  }
+  },
+ 
 }
 </script>

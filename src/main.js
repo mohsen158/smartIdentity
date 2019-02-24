@@ -8,15 +8,18 @@ import {Courses} from  './scripts/smartContract'
 
 Vue.use(SuiVue);
 Vue.config.productionTip = false
- Courses.getInstructor(function(error, result){
-	if(!error){
- 	  console.log('event recieved:',result);
-	  }
-   else
-	 console.error(error);
-   });
-new Vue({
-  router,
-   
-  render: h => h(App),
+//  Courses.getInstructor(function(error, result){
+// 	if(!error){
+//  	  console.log('event recieved:',result);
+// 	  }
+//    else
+// 	 console.error(error);
+//    });
+var vm =new Vue({
+	router,
+   data:{
+	   msd:'salam'
+   },
+	render: h => h(App),
 }).$mount('#app')
+
