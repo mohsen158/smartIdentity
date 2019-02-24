@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "merkletreejs": "0.0.22",
     "semantic-ui-vue": "^0.8.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",

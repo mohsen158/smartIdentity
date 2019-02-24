@@ -33,7 +33,7 @@
       <sui-grid-column>
       
      
-
+<router-link to="/page2">
 
 <sui-card class="raised link">
       <sui-card-content>
@@ -46,7 +46,7 @@
         verify identity
         </span>
       </sui-card-content>
-    </sui-card>
+    </sui-card></router-link>
 
 
 

@@ -114,9 +114,9 @@ web3.version.getNetwork((err, netId) => {
 web3.eth.defaultAccount = web3.eth.accounts[0]
 // personal.unlockAccount(web3.eth.defaultAccount)
 export var Courses = CoursesContract.at('0xfb29057caab019f20b905b9b6acd5854fd18489c')
- Courses.setInstructor("Stephen Hawking", 76,function(data){
-	 console.log('iam in setINstructoe :',data);
- })
+//  Courses.setInstructor("Stephen Hawking", 76,function(data){
+// 	 console.log('iam in setINstructoe :',data);
+//  })
 // Courses.getInstructor(function(error, result){
 // 	if(!error){
 //  	  console.log(result);

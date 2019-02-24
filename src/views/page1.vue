@@ -54,6 +54,12 @@
 import HelloWorld from '@/components/HelloWorld.vue'
  import {Courses} from  '../scripts/smartContract'
 
+import MerkleTree from 'merkletreejs'
+import SHA256 from 'crypto-js/sha256';
+// const SHA256 = require('crypto-js/sha256')
+
+
+
 // var Courses = CoursesContract.at('0xbB92a826526f7B5de92434811Eb6EFaE289A5A06');
 // Courses.setInstructor('Stephen Hawking', 76)
 export default {
@@ -64,9 +70,16 @@ lastName:''}
   },
   methods: {
     save:function(){
-       Courses.setInstructor(this.firstName,23,function (){});
+      
+      const leaves = [this.firstName,this.lastName].map(x => SHA256(x))
+const tree = new MerkleTree(leaves, SHA256)
+const root = tree.getRoot().toString('hex')
+const leaf = SHA256('a')
+const proof = tree.getProof(leaf)
+console.log('tree') // true
+       Courses.setInstructor(root,23,function (){});
 
-      console.log(this.firstName);
+      // console.log(this.firstName);
     }
   },
 
