@@ -1,8 +1,14 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+     -->
+     <router-view/>
+ <sui-divider style="width:800px;margin-left:auto; margin-right:auto" horizontal><span style="color: #ffffff;">Smart contract Logs</span></sui-divider>
+
+
   </div>
+  
 </template>
 
 <script>
@@ -21,8 +27,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin: auto; */
 }
 </style>
