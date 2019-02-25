@@ -44,15 +44,15 @@ export default {
     }
   },
   mounted: function() {
-    var instructorEvent = Courses.Instructor();
+    var identityAddedEvent = Courses.IdentityAdded();
     var that = this;
-    Courses.getInstructor(function(error, result) {
-      if (!error) {
-        console.log("event recieved:", result);
-      } else console.error(error);
-    });
+    // Courses.getInstructor(function(error, result) {
+    //   if (!error) {
+    //     console.log("event recieved:", result);
+    //   } else console.error(error);
+    // });
 
-    instructorEvent.watch((error, result) => {
+    identityAddedEvent.watch((error, result) => {
       if (!error) {
         // TODO real time logs :|
         // that.logs.push(result)

@@ -72,7 +72,7 @@ export default {
       const leaf = SHA256("a");
       const proof = tree.getProof(leaf);
       console.log("tree1:"); // true
-      Courses.setInstructor(root, 23, function() {});
+      Courses.addIdentity(root, function() {});
 
       // console.log(this.firstName);
     }

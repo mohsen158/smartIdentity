@@ -36,7 +36,22 @@ export default {
     save: function() {
       if (this.endorsee != "") {
         //TODO Endorse things
-      }
+
+Courses.addEndorsee(this.endorsee,function name(params) {
+  
+});
+      
+      //  Courses.setInstructor(root,23,function (){});
+
+      // console.log(this.firstName);
+    }
+
+
+
+
+
+
+      
     }
   },
 

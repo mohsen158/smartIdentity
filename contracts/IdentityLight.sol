@@ -5,7 +5,7 @@ uint public numberOfUsers;
     uint public numberOfEndorsees;
     bool public status;    
     
- mapping (address => bytes32) public userIdentityHash;
+ mapping (address => string) public userIdentityHash;
     mapping (address => uint) public endorsedUserId;
     
     Endorse[] public endorsedUsers;
@@ -13,7 +13,7 @@ uint public numberOfUsers;
 
 
 
-    event IdentityAdded(address UserAddress,bytes32 rootIdentityHash);
+    event IdentityAdded(address UserAddress,string rootIdentityHash);
     event UserEndorsed(address Endorser, address Endorsee);
     event EndorseeRemoved(address UserAddress);
     event StatusChanged(string Status);
@@ -39,7 +39,8 @@ uint public numberOfUsers;
       emit   StatusChanged("Smart Contract Deactivated");
     }
     
-    function addIdentity (bytes32 rootHashIdentity) public
+    
+    function addIdentity (string memory rootHashIdentity) public
     {
         userIdentityHash[msg.sender]=rootHashIdentity;
         emit IdentityAdded(msg.sender,rootHashIdentity);
@@ -47,7 +48,9 @@ uint public numberOfUsers;
  
 
 
- 
+ function getIdentityHash() view public returns (string memory){
+     return userIdentityHash[msg.sender];
+ }
 
 
  function addEndorsee(address endorseeAddress)  public {

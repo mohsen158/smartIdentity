@@ -28,55 +28,70 @@ if (window.ethereum) {
 
 
 
-let contractAddress = '0xf1f5896ace3a78c347eb7eab503450bc93bd0c3b'
 let index = 0
 // console.log(web3.eth.getStorageAt(contractAddress, index))
 // console.log('DEC:' +(web3.eth.getStorageAt(contractAddress, index).then(ttt=>console.log(ttt))))
 var CoursesContract =   web3.eth.contract([
 	{
+		"constant": true,
+		"inputs": [],
+		"name": "status",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_fName",
+				"name": "rootHashIdentity",
 				"type": "string"
-			},
-			{
-				"name": "_age",
-				"type": "uint256"
 			}
 		],
-		"name": "setInstructor",
+		"name": "addIdentity",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": true,
 		"inputs": [
 			{
-				"indexed": false,
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "age",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "Instructor",
-		"type": "event"
+		"name": "endorsedUsers",
+		"outputs": [
+			{
+				"name": "endorser",
+				"type": "address"
+			},
+			{
+				"name": "endorsee",
+				"type": "address"
+			},
+			{
+				"name": "endorseeSince",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getInstructor",
+		"name": "numberOfEndorsees",
 		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			},
 			{
 				"name": "",
 				"type": "uint256"
@@ -85,6 +100,172 @@ var CoursesContract =   web3.eth.contract([
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "userIdentityHash",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getIdentityHash",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "endorseeAddress",
+				"type": "address"
+			}
+		],
+		"name": "addEndorsee",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "numberOfUsers",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "deactivate",
+				"type": "bool"
+			}
+		],
+		"name": "changeStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "endorsedUserId",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "UserAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "rootIdentityHash",
+				"type": "string"
+			}
+		],
+		"name": "IdentityAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "Endorser",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "Endorsee",
+				"type": "address"
+			}
+		],
+		"name": "UserEndorsed",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "UserAddress",
+				"type": "address"
+			}
+		],
+		"name": "EndorseeRemoved",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"name": "Status",
+				"type": "string"
+			}
+		],
+		"name": "StatusChanged",
+		"type": "event"
 	}
 ]
 );
@@ -113,7 +294,7 @@ web3.version.getNetwork((err, netId) => {
 
 web3.eth.defaultAccount = web3.eth.accounts[0]
 // personal.unlockAccount(web3.eth.defaultAccount)
-export var Courses = CoursesContract.at('0xfb29057caab019f20b905b9b6acd5854fd18489c')
+export var Courses = CoursesContract.at('0xe64ffab6f9500f1de8c422a36e1f9f2c2566790e')
 //  Courses.setInstructor("Stephen Hawking", 76,function(data){
 // 	 console.log('iam in setINstructoe :',data);
 //  })

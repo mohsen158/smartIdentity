@@ -112,24 +112,24 @@ export default {
       this.open = !this.open;
     },
     verify: function() {
-      // if((this.firstName!='' || this.hFirstName!='')&& (this.lastName!=''||this.hLastName!=''))
+      if((this.firstName!='' || this.hFirstName!='')&& (this.lastName!=''||this.hLastName!=''))
       {
          let leaves=[]
        leaves = [this.firstName, this.lastName].map(x => SHA256(x));
-      // this.firstName!=''?leaves[0]=SHA256(this.firstName):leaves[0]=this.hFirstName
-      // this.lastName!=''?leaves[1]=SHA256(this.lastName):leaves[1]=this.hLastName
+      this.firstName!=''?leaves[0]=SHA256(this.firstName):leaves[0]=this.hFirstName
+      this.lastName!=''?leaves[1]=SHA256(this.lastName):leaves[1]=this.hLastName
       const tree = new MerkleTree(leaves, SHA256);
       const root = tree.getRoot().toString("hex");
       // const proof = tree.getProof(leaf);
       var that = this;
       console.log('root in page2',root);
-      Courses.getInstructor(function(error, result) {
+      Courses.getIdentityHash(function(error, result) {
         if (!error) {
-          if (root == result[0]) {
+          if (root == result) {
             that.toggle();
             console.log("okkkkkkkkkkkkkkkkkkkk");
           }
-          console.log("event recieved:", result[0]);
+          console.log("event recieved:", result);
         } else console.error(error);
       });
       }
