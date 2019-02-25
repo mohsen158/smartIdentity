@@ -14,8 +14,7 @@
       <sui-message style="width:500px;margin-left:auto; margin-right:auto;" success>
         <sui-message-header>Changes in Service</sui-message-header>
         <p>
-          We updated our privacy policy here to better service our customers.
-          We recommend reviewing the changes.
+        {{log}}
         </p>
       </sui-message>
 
@@ -32,11 +31,17 @@ export default {
   name: "app",
   data: function() {
     return {
-      logs: [12]
+      logs: [],
+      log:''
     };
   },
   components: {
     HelloWorld
+  },
+  methods: {
+    logger () {
+      console.log('Called!');
+    }
   },
   mounted: function() {
     var instructorEvent = Courses.Instructor();
@@ -47,13 +52,15 @@ export default {
       } else console.error(error);
     });
 
-    instructorEvent.watch(function(error, result) {
+    instructorEvent.watch((error, result) => {
       if (!error) {
         // TODO real time logs :|
         // that.logs.push(result)
-        console.log("inja ke kheili naze:", this.logs);
+       this.logs.push(result)
+       this.log=result
         console.log("event watch recieved:", result);
-      } else {
+        console.log(this.logs)
+       } else {
         console.log(error);
       }
     });
