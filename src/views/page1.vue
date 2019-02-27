@@ -12,7 +12,7 @@
     
   </div>-->
   <!-- <sui-grid divided="vertically" style="  margin:250px auto; width: 50%;"  > -->
-  <div style="  margin:  auto; width: 800px;margin-top:250px">
+  <div style="  margin:  auto; width: 800px;padding-top:250px">
     <router-link to="/">
       <sui-button>Back</sui-button>
     </router-link>
@@ -72,14 +72,12 @@ export default {
       const leaf = SHA256("a");
       const proof = tree.getProof(leaf);
       console.log("tree1:"); // true
-      Courses.addIdentity(root, function() {});
+      Courses.addIdentity(root, function(err) {
+        if (err) alert(err.message);
+      });
 
       // console.log(this.firstName);
     }
-  },
-
-  components: {
-    HelloWorld
   }
 };
 </script>

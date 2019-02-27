@@ -2,39 +2,41 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css">
-  <style>
-      @keyframes back-to-docs {
-          0% {
-              transform: translateY(0);
-          }
-          50% {
-              transform: translateY(0.5em);
-          }
-          100% {
-              transform: translateY(0);
-          }
-      }
-  </style>
-  <title>project</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.min.css">
+    <style>
+        @keyframes back-to-docs {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(0.5em);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <title>Identity Light</title>
 </head>
 
 <body>
- 
-    <canvas style="z-index: -21; top:0;position: absolute;" id="c"></canvas>
+
+    <canvas style="z-index: -21; top:0;position: absolute; height: auto;" id="c"></canvas>
     <!--<div class="info">Click to add gravity point.</div>-->
     <script src='scripts/kzymdn.js'></script>
     <div id="app" style="animation: back-to-docs 1.5s ease-in-out infinite; z-index: 6;">
-            
-        </div>
 
-<script src="scripts/index.js"></script>
+    </div>
 
-  <!-- built files will be auto injected -->
+    <script src="scripts/index.js"></script>
+
+    <!-- built files will be auto injected -->
 </body>
 
 </html>

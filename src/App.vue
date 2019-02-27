@@ -9,16 +9,12 @@
     <sui-divider style="width:800px;margin-left:auto; margin-right:auto" horizontal inverted>
       <span style="color: #ffffff;">Last log of smart contract</span>
     </sui-divider>
-    <div style="width:800px;margin-left:auto; margin-right:auto; height:250px;">
+    <div v-if="log" style="width:800px;margin-left:auto; margin-right:auto;">
       <!-- <div v-bind:key="item" v-for="item in logs">{{item}}</div> -->
       <sui-message style="width:500px;margin-left:auto; margin-right:auto;" success>
-        <sui-message-header>Changes in Service</sui-message-header>
-        <p>
-        {{log}}
-        </p>
+        <sui-message-header>{{log.event}}</sui-message-header>
+        <p>{{log.args}}</p>
       </sui-message>
-
-      
     </div>
   </div>
 </template>
@@ -32,15 +28,13 @@ export default {
   data: function() {
     return {
       logs: [],
-      log:''
+      log: ""
     };
   },
-  components: {
-    HelloWorld
-  },
+
   methods: {
-    logger () {
-      console.log('Called!');
+    logger() {
+      console.log("Called!");
     }
   },
   mounted: function() {
@@ -56,11 +50,11 @@ export default {
       if (!error) {
         // TODO real time logs :|
         // that.logs.push(result)
-       this.logs.push(result)
-       this.log=result
+        this.logs.push(result);
+        this.log = result;
         console.log("event watch recieved:", result);
-        console.log(this.logs)
-       } else {
+        console.log(this.logs);
+      } else {
         console.log(error);
       }
     });

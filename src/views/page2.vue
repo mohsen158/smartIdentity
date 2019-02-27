@@ -11,7 +11,7 @@
 </router-link>
     
   </div>-->
-  <div style="  margin:  auto; width: 800px;margin-top:250px">
+  <div style="  margin:  auto; width: 800px;padding-top:250px">
     <router-link to="/">
       <sui-button>Back</sui-button>
     </router-link>
@@ -73,11 +73,34 @@
       <sui-modal v-model="open">
         <sui-modal-header>Resualt</sui-modal-header>
         <sui-modal-content image>
-          <sui-image wrapped size="medium" src="static/images/avatar/large/rachel.png"/>
+          <sui-image
+            wrapped
+            size="small"
+            src="https://cdn.iconscout.com/icon/free/png-256/grinning-face-smile-emoji-happy-37705.png"
+          />
           <sui-modal-description>
             <sui-header>Information is valid</sui-header>
-            <p>means that your entered identity are completly compatible with correct information</p>
+            <p>means that your entered identity is completly compatible with correct information</p>
             <p>:D</p>
+          </sui-modal-description>
+        </sui-modal-content>
+        <sui-modal-actions>
+          <sui-button positive @click.native="toggle">OK</sui-button>
+        </sui-modal-actions>
+      </sui-modal>
+
+      <sui-modal v-model="openError">
+        <sui-modal-header>Resualt</sui-modal-header>
+        <sui-modal-content image>
+          <sui-image
+            wrapped
+            size="small"
+            src="https://png.pngtree.com/element_our/md/20180626/md_5b321cab44ec7.png"
+          />
+          <sui-modal-description>
+            <sui-header>Information is not valid</sui-header>
+            <p>means that your entered identity is not compatible with correct information</p>
+            <p>:/</p>
           </sui-modal-description>
         </sui-modal-content>
         <sui-modal-actions>
@@ -104,6 +127,7 @@ export default {
       hFirstName: "",
       hLastName: "",
       open: false,
+      openError: false,
       lastName: ""
     };
   },
@@ -111,35 +135,43 @@ export default {
     toggle() {
       this.open = !this.open;
     },
+    toggleError() {
+      this.openError = !this.openError;
+    },
     verify: function() {
-      if((this.firstName!='' || this.hFirstName!='')&& (this.lastName!=''||this.hLastName!=''))
-      {
-         let leaves=[]
-       leaves = [this.firstName, this.lastName].map(x => SHA256(x));
-      this.firstName!=''?leaves[0]=SHA256(this.firstName):leaves[0]=this.hFirstName
-      this.lastName!=''?leaves[1]=SHA256(this.lastName):leaves[1]=this.hLastName
-      const tree = new MerkleTree(leaves, SHA256);
-      const root = tree.getRoot().toString("hex");
-      // const proof = tree.getProof(leaf);
-      var that = this;
-      console.log('root in page2',root);
-      Courses.getIdentityHash(function(error, result) {
-        if (!error) {
-          if (root == result) {
-            that.toggle();
-            console.log("okkkkkkkkkkkkkkkkkkkk");
-          }
-          console.log("event recieved:", result);
-        } else console.error(error);
-      });
+      if (
+        (this.firstName != "" || this.hFirstName != "") &&
+        (this.lastName != "" || this.hLastName != "")
+      ) {
+        let leaves = [];
+        leaves = [this.firstName, this.lastName].map(x => SHA256(x));
+        this.firstName != ""
+          ? (leaves[0] = SHA256(this.firstName))
+          : (leaves[0] = this.hFirstName);
+        this.lastName != ""
+          ? (leaves[1] = SHA256(this.lastName))
+          : (leaves[1] = this.hLastName);
+        const tree = new MerkleTree(leaves, SHA256);
+        const root = tree.getRoot().toString("hex");
+        // const proof = tree.getProof(leaf);
+        var that = this;
+        console.log("root in page2", root);
+        Courses.getIdentityHash(function(error, result) {
+          if (!error) {
+            if (root == result) {
+              that.toggle();
+              console.log("okkkkkkkkkkkkkkkkkkkk");
+            } else {
+              that.toggleError();
+            }
+            console.log("event recieved:", result);
+          } else alert(error);
+        });
       }
       //  Courses.setInstructor(root,23,function (){});
 
       // console.log(this.firstName);
     }
-  },
-  components: {
-    HelloWorld
   }
 };
 </script>

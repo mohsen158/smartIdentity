@@ -1,5 +1,5 @@
 <template>
-  <div style="  margin:  auto; width: 800px;margin-top:250px">
+  <div style="  margin:  auto; width: 800px;padding-top:250px">
     <router-link to="/">
       <sui-button>Back</sui-button>
     </router-link>
@@ -36,27 +36,18 @@ export default {
     save: function() {
       if (this.endorsee != "") {
         //TODO Endorse things
+        try {
+          Courses.addEndorsee(this.endorsee, function(err) {
+            if (err) alert(err.message);
+          });
+        } catch (err) {
+          alert(err);
+        }
+        //  Courses.setInstructor(root,23,function (){});
 
-Courses.addEndorsee(this.endorsee,function name(params) {
-  
-});
-      
-      //  Courses.setInstructor(root,23,function (){});
-
-      // console.log(this.firstName);
+        // console.log(this.firstName);
+      }
     }
-
-
-
-
-
-
-      
-    }
-  },
-
-  components: {
-    HelloWorld
   }
 };
 </script>
