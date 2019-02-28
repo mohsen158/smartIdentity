@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="animation: back-to-docs 1.5s ease-in-out infinite; z-index: 6;">
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     -->
@@ -72,5 +72,20 @@ export default {
   /* text-align: center; */
   color: #2c3e50;
   /* margin: auto; */
+}
+</style>
+<style>
+@keyframes back-to-docs {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(0.5em);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 </style>
