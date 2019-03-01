@@ -1,10 +1,35 @@
-var IdentityLight = artifacts.require("./IdentityLight.sol");
+var IdentityLight = artifacts.require("../contracts/IdentityLight.sol");
+
+
+
+
 contract("IdentityLight", function (accounts) {
-    it("testForTest", function () {
+
+    // console.log(accounts)
+    it("Status must be zero ", function () {
+        return IdentityLight.deployed().then(function (app) {
+            return app.status();
+        }).then(function (num) {
+            assert.equal(num, 0);
+        })
+    })
+
+    it("Initial number of user is ZERO", function () {
+        return IdentityLight.deployed().then(function (app) {
+            return app.numberOfUsers();
+        }).then(function (num) {
+            assert.equal(num, 0);
+        })
+    })
+
+
+    it("Initial number of endorses must be ZERO ", function () {
         return IdentityLight.deployed().then(function (app) {
             return app.numberOfEndorsees();
         }).then(function (num) {
-            assert.equal(num, 3);
+            assert.equal(num, 0);
         })
     })
+
+
 })
