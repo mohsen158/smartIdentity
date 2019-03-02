@@ -36,16 +36,10 @@ export default {
     save: function() {
       if (this.endorsee != "") {
         //TODO Endorse things
-        try {
-          Courses.addEndorsee(this.endorsee, function(err) {
-            if (err) alert(err.message);
-          });
-        } catch (err) {
-          alert(err);
-        }
-        //  Courses.setInstructor(root,23,function (){});
 
-        // console.log(this.firstName);
+        Courses.addEndorsee(this.endorsee, function(err) {
+          if (err) alert(err.message);
+        });
       }
     }
   }
